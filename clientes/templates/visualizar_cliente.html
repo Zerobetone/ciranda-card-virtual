@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cartão Ciranda</title>
+
+    <link rel="shortcut icon" href="{% static 'card_ciranda.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+    <script src="{% static 'js/svg-inject.min.js' %}"></script>
+  </head>
+  <body>
+    <main class="container">
+      <aside class="options">
+        <div class="options-container">
+          <header class="header">
+            <img
+              src="{% static 'img/logo_ciranda.png' %}"
+              alt="Nubank"
+
+            />
+          </header>
+
+          <h1 class="title">Bem-vindo(a) ao Cartão Ciranda! :)</h1>
+  <div class="input-model">
+
+           <div class="flex">
+               <textarea class="text" id="name"  >http://127.0.0.1:8000/visualizar_cliente/{{ cliente.id }}</textarea>
+               <input id="copy" type="button" value="Copiar Link"/>
+          </div>
+    <br>
+    <br>
+               <div class="input-logo">
+            <label>Afiliados</label>
+            <div class="flex">
+              <button id="logo1">
+
+              </button>
+
+              <button id="logo2" >
+
+              </button>
+            </div>
+    </div>
+        <br>
+          <footer>
+            <ul class="social-media">
+
+
+<!--              <li>-->
+<!--                <a href="https://github.com/zerobetone" target="_blank">-->
+<!--                  <img src="{% static 'img/github.svg' %}" alt="GitHub" />-->
+<!--                </a>-->
+<!--              </li>-->
+
+                     <li>
+                <a                  href="https://api.whatsapp.com/send?phone=5588998218266&text=Ol%C3%A1"
+                  target="_blank"
+                >
+                  <img src="{% static 'img/whatsapp.svg' %}"/>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://instagram.com/cirandamenteativa?igshid=YmMyMTA2M2Y="
+                  target="_blank"
+                >
+                  <img src="{% static 'img/instagram.svg' %}" alt="Instagram" />
+                </a>
+              </li>
+            </ul>
+
+            <p class="copy">
+              Todos os direitos reservados para o
+              <a href="#" target="_blank">José Roberto</a>
+            </p>
+          </footer>
+        </div>
+      </aside>
+
+      <section class="preview">
+        <div class="card" data-js="card">
+          <div class="card-bg" data-js="card-bg"></div>
+          <div class="card-flag">
+            <img src="{% static 'img/card_flag.svg' %}" alt="Flag" />
+          </div>
+
+          <div class="card-flex">
+            <div class="card-logo">
+<!--              <img-->
+<!--                src="{% static 'img/card_ciranda.png' %}"-->
+<!--                alt="Nubank"-->
+
+<!--              />-->
+            </div>
+           <p class="card-name"> {{ cliente.nomecompleto }}</p>
+            <p class="card-name"> 00{{ cliente.id }}</p>
+          </div>
+        </div>
+      </section>
+    </main>
+<script>
+let btn = document.querySelector('#copy');
+btn.addEventListener('click', function(e) {
+  let textArea = document.querySelector('.text');
+  textArea.select();
+  document.execCommand('copy');
+
+});</script>
+
+    <script src="{% static 'js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block title %}  Página Inicial {% endblock %}
+{% block main %}
+  <!-- Busca clientes -->
+
+	<div class="container" id="areabusca">
+    <div class="row justify-content-center p-3 mb-2 bg-info text-white">
+      <div class="col-10">
+        <form> 
+          <div class="input-group">
+            <input type="text" class="form-control form-control-lg" name="busca" id="busca" type="text" placeholder="Buscar cliente..." value="{{ request.GET.busca }}">
+            <div class="input-group-append">
+              <button class="btn p-3 mb-2 bg-info text-white" type="submit"><i class="fas fa-search"></i>  Buscar</button>
+            </div>
+          </div>
+        </form>
+		  <p> Este Sistema permite você cadastrar novos clientes do Cartão Ciranda. O cartão virtual Ciranda é emitido ao
+		  final do cadastro de um novo cliente, basta clicar em visualizar um determinado cliente, copiar link do cartão e assim você pode enviar
+		  para seu cliente por qualquer meio de comunicação: Instagram, e-mail ou Whatsapp.</p>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+	{% for cliente in clientes %}
+  <div class="col">
+    <div class="card h-100">
+<!--      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top"-->
+<!--        alt="Skyscrapers" />-->
+<!--		 <img src="https://images.app.goo.gl/vSJo4ZVxwC5djiyG6" class="card-img-top">-->
+
+
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Cartão Ciranda</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>00{{ cliente.id }}</span></h2>
+                    <p class="m-b-0">{{ cliente.nomecompleto }}<span class="f-right">{{ cliente.date }}</span></p>
+                </div>
+            </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Dados do Cliente: </h5>
+        <p class="card-text">
+          {{ cliente.nomecompleto }}
+
+        </p>
+		  <p>{{ cliente.email }}</p>
+		  <p> {{ cliente.whatsapp}} </p>
+		  <p>{{ cliente.cidade }}</p>
+		  <td>
+						<a href="{% url 'visualizar_cliente' cliente.id %}" class="btn p-3 mb-2 bg-info text-white" > <i class="far fa-eye"></i> Visualizar </a>
+						<a href="{% url 'atualizar_cliente' cliente.id %}" class="btn p-3 mb-2 bg-info text-white"> <i class="fas fa-user-edit"></i> Atualizar </a>
+						<div class="btn-group dropright">
+							<button type="button" class="btn p-3 mb-2 bg-info text-white dropdown-toggle" data-toggle="dropdown"> Mais </button>
+							<div class="dropdown-menu">
+								<a href="{% url 'clonar_cliente' cliente.id %}" class="dropdown-item"><i class="far fa-copy"></i> Clonar </a>
+								<a href="#" class="dropdown-item " data-toggle="modal" data-target="#delete-modal" ><i class="far fa-trash-alt"></i> Excluir </a>
+							</div>
+						</div>
+					</td>
+      </div>
+<!--      <div class="card-footer">-->
+<!--		  <textarea class="text" hidden >http://127.0.0.1:8000/visualizar_cliente/{{ cliente.id }}</textarea>-->
+<!--					 <input id="copy" type="button" value="Copiar link " class="btn p-3 mb-2 bg-info text-white"">-->
+
+
+<!--      </div>-->
+
+    </div>
+  </div>
+				{% endfor %}
+	<script>
+let btn = document.querySelector('#copy');
+btn.addEventListener('click', function(e) {
+  let textArea = document.querySelector('.text');
+  textArea.select();
+  document.execCommand('copy');
+
+});</script>
+	<br>
+	<br>
+
+</div>
+	<!-- Listagem clientes -->  	
+	<div class="table-responsive-md">
+		<table class="table table-hover table-bordered">
+			<thead class="p-3 mb-2 bg-info text-white"">
+				<tr>
+					<th scope="col">Nome</th>
+					<th scope="col">Email</th>
+					<th scope="col">Cidade</th>
+					<th scope="col">Ações</th>
+				</tr>
+			</thead>
+			<tbody>      
+				{% for cliente in clientes %}
+				<!-- Linhas -->  
+				<tr>
+					<td>{{ cliente.nomecompleto }} </th>
+					<td>{{ cliente.email }} </td>
+					<td>{{ cliente.cidade }} </td>
+					<td>
+						<a href="{% url 'visualizar_cliente' cliente.id %}" class="btn p-3 mb-2 bg-info text-white" > <i class="far fa-eye"></i> Visualizar </a>
+						<a href="{% url 'atualizar_cliente' cliente.id %}" class="btn p-3 mb-2 bg-info text-white"> <i class="fas fa-user-edit"></i> Atualizar </a>
+						<div class="btn-group dropright">
+							<button type="button" class="btn p-3 mb-2 bg-info text-white dropdown-toggle" data-toggle="dropdown"> Mais </button>
+							<div class="dropdown-menu">
+								<a href="{% url 'clonar_cliente' cliente.id %}" class="dropdown-item"><i class="far fa-copy"></i> Clonar </a>
+								<a href="#" class="dropdown-item " data-toggle="modal" data-target="#delete-modal" ><i class="far fa-trash-alt"></i> Excluir </a>
+							</div>
+						</div>          
+					</td>
+				<!-- /linhas -->  
+					<!-- /#Modal para Excluir -->   
+					<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Excluir Cadastro</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<span class="font-weight-bold">Tem certeza de que deseja excluir este cliente?</span>
+									<p>Esta operação é irreversível.</p>
+								</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary " data-dismiss="modal"> Cancelar </button>
+										<a href="{% url 'excluir_cliente' cliente.id %}" class="btn btn-danger"> <i class="far fa-trash-alt"></i> Excluir </a>
+									</div>
+							</div>
+						</div>
+					</div>
+					<!-- /#Fim Modal para Excluir -->   
+				</tr> 
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!-- Paginação -->   
+	<nav>
+		<ul class="pagination justify-content-center">
+			{% if clientes.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="?page={{ clientes.previous_page_number }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}" aria-label="Anterior">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" aria-label="Anterior">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+			{% endif %}
+			{% for num in clientes.paginator.page_range %}
+				{% if clientes.number == num %}
+						<li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+				{% else %}
+						<li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}">{{ num }}</a></li>
+				{% endif %}
+			{% endfor %}
+
+			{% if clientes.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ clientes.next_page_number }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+
+{% endblock main %}
+
