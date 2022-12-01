@@ -270,6 +270,9 @@ input + input {
   left: 0;
   width: 688px;
   height: 400px;
+  margin-top: 195px;
+  margin-right: 200px;
+  margin-left: 100px;
   border-radius: 40px;
 }
 
@@ -432,6 +435,9 @@ input + input {
   .card-bg {
     width: 488px;
     height: 300px;
+    margin-top: 195px;
+    margin-right: 200px;
+    margin-left: 100px;
     border-radius: 32px;
   }
   .card-flag {
